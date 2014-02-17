@@ -51,6 +51,6 @@ public class HttpServerHandler extends SimpleChannelUpstreamHandler {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) throws Exception {
         //DO NOTHING ha ha!
-//        super.exceptionCaught(ctx, e);
+        super.exceptionCaught(ctx, e);
     }
 }
