@@ -16,22 +16,25 @@ import java.io.IOException;
  */
 public class NettyConnectorTest {
 
+    public static final String HELLO_WORLD = "hello world!";
+
     @Test
-    public void should_mock_dispatcher_return_true() throws Exception {
+    public void should_mock_dispatcher_return_assumed_body() throws Exception {
         Connector connector = new NettyConnector();
         connector.port(8080).dispatcher(mockDispatcher()).start();
         String returnString = Request.Get("http://127.0.0.1:8080/")
                 .connectTimeout(1000)
                 .socketTimeout(1000)
                 .execute().returnContent().asString();
-        Assertions.assertThat(returnString).isEqualTo("helloworld");
+        Assertions.assertThat(returnString).isEqualTo(HELLO_WORLD);
+        connector.stop();
     }
 
     private Dispatcher mockDispatcher(){
         return new Dispatcher() {
             @Override
             public void dispatch(HttpServletRequest request, HttpServletResponse response) throws IOException {
-                response.getOutputStream().print("helloworld");
+                response.getOutputStream().print(HELLO_WORLD);
             }
         };
     }
